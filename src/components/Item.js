@@ -4,13 +4,16 @@ import React from 'react';
 import {
     StyleSheet, 
     View, 
-    Text
+    Text,
+    TouchableOpacity,
+    TextInput
 } from 'react-native';
 
 const Item = ({lyric}) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{lyric}</Text>
+    <View>
+      <TextInput 
+        multiline={true}>{lyric.split('\n')}</TextInput>
     </View>
   );
 };

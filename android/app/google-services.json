@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "139893079454",
+    "firebase_url": "https://mymove-madcamp4.firebaseio.com",
+    "project_id": "mymove-madcamp4",
+    "storage_bucket": "mymove-madcamp4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139893079454:android:3abcdab231e11a625a2a8f",
+        "android_client_info": {
+          "package_name": "com.sampleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139893079454-gr3krl8m75j3coc34lg8s9jsqfjbhsae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxg5CH1IIlzAhV27XBCe2GSkWb57-ruvo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139893079454-gr3krl8m75j3coc34lg8s9jsqfjbhsae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
