@@ -1,5 +1,5 @@
 {
-  "name": "SampleApp",
+  "name": "ChoreographyNote",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -14,17 +14,23 @@
     "@react-native-community/slider": "3.0.3",
     "@react-native-firebase/app": "8.3.0",
     "@react-native-firebase/auth": "8.3.1",
+    "@react-native-firebase/firestore": "7.5.1",
     "@react-native-firebase/messaging": "7.6.1",
     "@react-navigation/native": "5.7.2",
     "@react-navigation/stack": "5.8.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
+    "react-native-document-picker": "3.5.4",
+    "react-native-easy-toast": "1.2.0",
+    "react-native-fs": "2.16.6",
     "react-native-gesture-handler": "1.7.0",
     "react-native-safe-area-context": "3.1.1",
     "react-native-screens": "2.9.0",
     "react-native-sound": "0.11.0",
     "react-native-sound-player": "0.10.4",
-    "react-native-sound-playerview": "1.0.0"
+    "react-native-sound-playerview": "1.0.0",
+    "react-native-track-player": "1.2.3",
+    "react-native-video": "4.4.5"
   },
   "devDependencies": {
     "@babel/core": "7.11.0",

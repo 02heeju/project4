@@ -3,31 +3,43 @@ import {
     StyleSheet,
     View,
     Text,
-    Image,
     TextInput,
     TouchableOpacity,
     ActivityIndicator,
 } from 'react-native';
 import FooterButton from './components/FooterButton'
 
-// import Toast from 'react-native-easy-toast';
 import firebase from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth'; //안쓰면 에러남
+import Toast from 'react-native-easy-toast';
+import firestore from '@react-native-firebase/firestore';
+
 
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             email: '',
             password: '',
+            loading: false,
         }
     }
     handleLogin = () => {
         const { email, password } = this.state; //id = this.state.id
+        this.setState({loading: true});
         firebase
             .auth()
             .signInWithEmailAndPassword(email.trim(), password)
-            .then(() => this.props.navigation.navigate('Main'))
-            .catch(error => console.log(error));
+            .then(() => {
+                this.setState({loading: false})
+                this.props.navigation.navigate('MusicList')
+        })
+            .catch(error => {
+                this.setState({loading: false})
+                this.refs.toast.show('잘못된 로그인 정보입니다. 다시 로그인해 주세요.', 1000);
+                console.log(error)
+            });
     }
 
     render() {
@@ -64,7 +76,7 @@ export default class LoginScreen extends Component {
                 >
                     <Text style={styles.makeAccountText}>계정 만들기</Text>
                 </TouchableOpacity>
-                {/* <Toast ref="toast" /> */}
+                <Toast ref="toast" />
             </View>
         );
     }

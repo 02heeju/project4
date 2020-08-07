@@ -9,6 +9,8 @@ import {
 
 import FooterButton from './components/FooterButton';
 import firebase from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
+import Toast from 'react-native-easy-toast';
 
 
 export default class SignupScreen extends Component {
@@ -17,15 +19,26 @@ export default class SignupScreen extends Component {
         this.state = {
             email: '',
             password: '',
+            laoding: false,
         }
+        this.ref = firebase.firestore().collection('user')
     }
 
     handleSignUp = () => {
         const { email, password } = this.state;
+        this.setState({loading: true});
         firebase.auth()
         .createUserWithEmailAndPassword(email.trim(), password)
-        .then(() => this.props.navigation.navigate('Main'))
-        .catch(error => console.log(error));
+        .then(() => {
+            this.setState({loading: false})
+            this.ref.doc(email.trim()).set({id: email.trim()})
+            this.props.navigation.navigate('MusicList')
+    })
+        .catch(error => {
+            this.setState({loading: false})
+            this.refs.toast.show('이메일 형식을 확인하세요. \n비밀번호는 6자 이상이어야 합니다.', 1000);
+            console.log(error)
+        });
     }
 
     render() {
@@ -55,6 +68,7 @@ export default class SignupScreen extends Component {
                         onPress={this.handleSignUp}
                         />
                 }
+                <Toast ref="toast" />
             </View>
         );
     }

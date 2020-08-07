@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'SampleApp' do
+target 'ChoreographyNote' do
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
@@ -12,11 +12,18 @@ target 'SampleApp' do
 
   pod 'RNSound', :path => '../node_modules/react-native-sound'
 
-  pod 'RNReactNativeGetMusicFiles', :path => '../node_modules/react-native-get-music-files'
 
 
 
-  target 'SampleAppTests' do
+
+
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
+  pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
+
+  target 'ChoreographyNoteTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -31,10 +38,10 @@ target 'SampleApp' do
   end
 end
 
-target 'SampleApp-tvOS' do
-  # Pods for SampleApp-tvOS
+target 'ChoreographyNote-tvOS' do
+  # Pods for ChoreographyNote-tvOS
 
-  target 'SampleApp-tvOSTests' do
+  target 'ChoreographyNote-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

@@ -19,6 +19,8 @@ import {
 } from 'react-native';
 import Sound from 'react-native-sound';
 import Slider from '@react-native-community/slider';
+import firebase from '@react-native-firebase/app';
+import auth from '@react-native-firebase/auth';
 
 // import Item from './component/Item';
 
@@ -53,28 +55,60 @@ class Items extends React.Component{
 
 //textinput 연습
 class Testarray extends React.Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       text: '',
-      lyricsArr: []
+      lyricsArr: [],
+      user: null,
+      getlyricsArr: [],
     }
     this.currentIndex = 0;
     this.updateIndex = this.updateIndex.bind(this);
     this.viewabilityConfig = {itemVisiblePercentThreshold: 50};
+    this.ref = firebase.firestore().collection('user');
   }
+
+  componentDidMount(){
+
+
+    const user = firebase.auth().currentUser;
+    if (user){
+      this.setState({user: user._user.email}, ()=>{ this.getLyrics()});
+      console.log('user email: ', this.state.user);
+    }else{
+      console.log('no user');
+    }
+    this.getLyrics();
+  }
+  
+  getLyrics = () => {
+    console.log("??" + this.state.user) 
+    this.ref.doc(this.state.user).collection('music_info').get().then( function(querySnapshot) {
+      console.log("sf sd")
+      // console.log(querySnapshot);
+      var tempArr=[]
+      console.log(tempArr)
+      querySnapshot.forEach(function(doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data().lyrics);
+          tempArr.push(doc.data().lyrics)
+          console.log(tempArr)
+
+          console.log("getlyricsArr: ");
+      });
+      this.setState({getlyricsArr: tempArr}, ()=>{console.log("hh "+ this.state.getlyricsArr)});
+      
+    }.bind(this));
+
+  }
+
 
   updateIndex({viewableItems}){
     this.currentIndex = viewableItems[0].index;
   }
 
   splitText(){
-    // tempArr=[];
-    // tempArr = this.state.text.split('\n');
-    // this.state.lyricsArr.splice(this.currentIndex, 0, tempArr.slice(1));
-    // this.state.lyricsArr[this.currentIndex] = tempArr[0];
-    // console.log('current Index: ' + this.currentIndex);
-    // console.log('tempArr: ' + tempArr[1]);
     this.state.lyricsArr = this.state.text.split('\n');
   }
 
@@ -93,7 +127,7 @@ class Testarray extends React.Component{
           onViewableItemsChanged={this.updateIndex}
           viewabilityConfig={this.viewabilityConfig}
           keyExtractor={item => item.toString()}
-          data={this.state.lyricsArr}
+          data={this.state.getlyricsArr}
           renderItem={({item}) => <TextInput>{item}</TextInput>}
         />
       </View>
@@ -116,13 +150,14 @@ class Musicbar extends React.Component{
       this.state = {
           playState:'paused', //playing, paused
           playSeconds:0,
-          duration:0,
+          duration:0, //노래길이
           timemark: 'default'
       }
       this.sliderEditing = false;
   }
 
   componentDidMount(){
+      const user = firebase.auth().currentUser;
       this.play();
       
       this.timeout = setInterval(() => {
@@ -166,7 +201,7 @@ class Musicbar extends React.Component{
           const filepath = Sound.MAIN_BUNDLE;
           console.log('[Play]', filepath);
   
-          this.sound = new Sound('madclown.mp3',filepath, (error) => {
+          this.sound = new Sound('/sdcard/media/documents/document/audio%3A159','', (error) => {
               if (error) {
                   console.log('failed to load the sound', error);
                   Alert.alert('Notice', 'audio file error. (Error code : 1)');
@@ -280,6 +315,7 @@ class Musicbar extends React.Component{
 
 //main structure
 export default class MainScreen extends React.Component{
+
   render(){
     return(
       <View style={{flex:1, justifyContent:'center', backgroundColor:'black', flexDirection:'row'}}>

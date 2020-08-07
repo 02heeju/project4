@@ -4,35 +4,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from './src/LoginScreen';
 import SignupScreen from './src/SignupScreen';
 import MainScreen from './src/MainScreen';
+import MusicListScreen from './src/MusicListScreen';
+import getMusicScreen from './src/getMusicScreen';
+import MyScreen from './src/MyScreen';
+import PerformList from './src/PerformList';
 
-// const AppNavigator = createStackNavigator({
-//   Home: {
-//     screen: LoginScreen,
-//     navigationOptions: {
-//       header: null
-//     },
-//   },
-//   SignUp: {
-//     screen: SignupScreen,
-//     navigationOptions: {
-//       header: null
-//     },
-//   },
-//   Main: {
-//     screen: MainScreen,
-//     navigationOptions: {
-//       header: null
-//     },
-//   },
-// });
 const Stack = createStackNavigator();
 
 function MyStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={LoginScreen} />
+      <Stack.Screen name="Home" component={PerformList} />
+      <Stack.Screen name="My" component={getMusicScreen} />
       <Stack.Screen name="SignUp" component={SignupScreen} />
       <Stack.Screen name="Main" component={MainScreen} />
+      <Stack.Screen name="MusicList" component={MusicListScreen} />
     </Stack.Navigator>
   );
 }
